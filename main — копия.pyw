@@ -100,7 +100,7 @@ class GDraw(Frame):
     
     def results(self, event):
         self.menu.data = self.drawing.get_results()
-        self.menu.second_draw(self.menu.data)
+        self.menu.second_draw()
 
 
 info = str(get_monitors())[8:-1].split(', ')
@@ -111,6 +111,7 @@ window = Tk()
 
 window.geometry(f'{round(width*.6)}x{round(height*.8)}+{round(width*.2)}+{round(height*.1)}')
 window.resizable(0, 0)
+print(width*.6)
 
 app = GDraw(width*.6, height*.8, root=window)
 app.mainloop()

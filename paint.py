@@ -1,3 +1,4 @@
+from ast import Return
 from tkinter import *
 
 class Paint():
@@ -24,13 +25,13 @@ class Paint():
     
     def main_draw(self):
         self.canvas.create_rectangle(self.x, self.y, self.x1, self.y1, fill='white', width=5)
-        delta = self.height // 35
+        self.delta = self.height // 35
         for i in range(1, 36):
-            self.canvas.create_line(i * delta + self.x, self.y,
-                                    i * delta + self.x, self.y1,
+            self.canvas.create_line(i * self.delta + self.x, self.y,
+                                    i * self.delta + self.x, self.y1,
                                     width=1)
-            self.canvas.create_line(self.x, i * delta + self.y,
-                                    self.x1, i * delta + self.y,
+            self.canvas.create_line(self.x, i * self.delta + self.y,
+                                    self.x1, i * self.delta + self.y,
                                     width=1)
         self.second_draw()
         self.result.place(x=self.height * .77, y=self.height / .8 * .773, 
@@ -41,6 +42,7 @@ class Paint():
             self.canvas.create_line(*self.lines[i], *self.lines[i+1], width=4, fill='blue') 
         for point in self.points:
             self.canvas.create_oval(point[0] - 5, point[1] -5, point[0] + 5, point[1] + 5, fill='red')
+            Label(self.canvas, text=str(len(self.points)))
     
     def MousePress(self, event, side):
         if side == 'left' and not self.end:
@@ -66,4 +68,11 @@ class Paint():
         self.main_draw()
     
     def get_results(self):
-        return {'test': 'Hello'}
+        data = {'периметр': self.perimeter()}
+        return data
+    
+    def perimeter(self):
+        ammount = 0
+        for i in range(len(self.points) - 1):
+            ammount += ((self.points[i][0] - self.points[i+1][0]) ** 2 +  ((self.points[i][1] - self.points[i+1][1]) ** 2)) ** 0.5
+        return ammount / self.delta
