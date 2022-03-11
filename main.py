@@ -55,11 +55,11 @@ class GDraw(Frame):
 
         if self.choice:
             self.drawing = Paint(self.c, self, *self.draw_size)
-            self.menu = Menu1(self.c, self.root, *self.menu_size, self.drawing.data)
+            self.menu = Menu1(self.c, self, *self.menu_size, self.drawing.data)
 
         else:
-            self.menu = Menu2(self.c, self.root, *self.menu_size)
-            self.drawing = Create(self.c, self.root, *self.draw_size)
+            self.menu = Menu2(self.c, self, *self.menu_size)
+            self.drawing = Create(self.c, self, *self.draw_size)
 
         self.c.pack()
     
